@@ -1,0 +1,1 @@
+python3 src/train.py --tokenizer_name 'gpt2' --feature_extractor_name 'google/vit-base-patch16-224' --coco_data_folder_path '/Volumes/Untitled 2 1/7-ViT-GPT2-Transformer/tiny_coco_dataset/tiny_coco' --file_caption_json_name 'captions_train2017.json' --val_size 0.1
