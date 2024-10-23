@@ -92,6 +92,12 @@ def parse_args():
         default=None,
         help="Name of the pretrained model to use",
     )
+    parser.add_argument(
+        "--hub_token",
+        type=str,
+        default=None,
+        help="Hugging Face Hub token for uploading the model",
+    )
 
     # set wandb
     parser.add_argument(
@@ -221,6 +227,7 @@ def train(args=None):
         report_to="wandb",
         run_name=args.wandb_project,
         push_to_hub=True,
+        hub_token=args.hub_token,
     )
     print("Training arguments loaded.")
 
