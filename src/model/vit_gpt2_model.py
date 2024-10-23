@@ -1,13 +1,13 @@
 from transformers import AutoTokenizer, ViTFeatureExtractor, VisionEncoderDecoderModel
 
 
-def get_tokenizer(name: str):
+def get_tokenizer(name: str) -> AutoTokenizer:
     tokenizer = AutoTokenizer.from_pretrained(name)
     tokenizer.pad_token = tokenizer.unk_token
     return tokenizer
 
 
-def get_feature_extractor(name: str):
+def get_feature_extractor(name: str) -> ViTFeatureExtractor:
     return ViTFeatureExtractor.from_pretrained(name)
 
 

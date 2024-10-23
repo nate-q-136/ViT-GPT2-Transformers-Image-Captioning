@@ -13,7 +13,7 @@ from model.vit_gpt2_model import (
     get_vit_gpt2_model,
 )
 from dataset.vit_gpt2_dataset import ViTGPT2Dataset
-from dataset.utils import CocoUtils
+from dataset.utils import Flickr30kUtils
 from rouge_score import rouge_scorer
 from model.transforms import train_tfms, val_tfms
 import argparse
@@ -34,7 +34,7 @@ def parse_args():
         help="Name of the feature extractor",
     )
     parser.add_argument(
-        "--coco_data_folder_path",
+        "--flickr30k_data_folder_path",
         type=str,
         required=True,
         help="Path to the COCO dataset folder",
@@ -46,10 +46,10 @@ def parse_args():
         help="Name of the folder containing images",
     )
     parser.add_argument(
-        "--file_caption_json_name",
+        "--file_caption_txt",
         type=str,
         required=True,
-        help="Name of the JSON file with captions",
+        help="Name of the txt file with captions",
     )
     parser.add_argument(
         "--epochs", type=int, default=5, help="Number of epochs to train"
@@ -143,9 +143,9 @@ def train(args=None):
     ).to(device)
     print("Model loaded.")
 
-    coco_utils = CocoUtils(root_folder_path=args.coco_data_folder_path)
+    coco_utils = Flickr30kUtils(root_folder_path=args.flickr30k_data_folder_path)
     df = coco_utils.convert_to_dataframe(
-        file_caption_json_name=args.file_caption_json_name,
+        file_caption_txt=args.file_caption_txt,
         folder_images=args.folder_images,
     )
     train_df, val_df = coco_utils.get_train_val_df(df=df, val_size=args.val_size)
