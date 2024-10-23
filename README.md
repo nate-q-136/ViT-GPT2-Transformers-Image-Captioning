@@ -171,7 +171,7 @@ python src/train_flickr30k.py \
     --is_pretrained \
     --pretrained_model_path <PRETRAINED_MODEL_PATH> \
     --tokenizer_name <TOKENIZER_NAME> \
-    --feature_extractor_name <FEATURE_EXTRACTOR_NAME> \
+    --feature_extractor_name <PRETRAINED_MODEL_PATH> \
     --flickr30k_data_folder_path <FLICKR30K_DATA_FOLDER_PATH> \
     --folder_images <FOLDER_IMAGES> \
     --file_caption_txt <CAPTION_TXT_NAME> \
