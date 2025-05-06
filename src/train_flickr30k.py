@@ -1,5 +1,10 @@
 import ssl
+import os
+import torch.multiprocessing as mp
 
+# ---- dead-lock prevention -----------------------------------------------------
+mp.set_start_method("spawn", force=True)
+os.environ.setdefault("WANDB_START_METHOD", "thread")
 ssl._create_default_https_context = ssl._create_unverified_context
 
 from transformers import (
@@ -76,6 +81,13 @@ def parse_args():
         default="steps",
         help="Evaluation strategy (no, steps, epoch)",
     )
+    parser.add_argument(
+        "--dataloader_num_workers",
+        type=int,
+        default=0,
+        help="0 is safest when JAX/W&B are imported",
+    )
+
     parser.add_argument(
         "--output_dir",
         type=str,
@@ -223,7 +235,7 @@ def train(args=None):
         warmup_steps=args.warmup_steps,
         num_train_epochs=args.epochs,
         save_total_limit=3,
-        dataloader_num_workers=1,
+        dataloader_num_workers=args.dataloader_num_workers,
         report_to="wandb",
         run_name=args.wandb_project,
         push_to_hub=True,
